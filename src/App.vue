@@ -1,19 +1,17 @@
 <script setup>
 
+import Form from "./components/Form.vue";
+import Retention from "./components/Retention.vue";
+import Result from "./components/Result.vue";
+
 </script>
 
 <template>
   <h1>Bolettta</h1>
   <h2>Calcula tu boleta de honorarios</h2>
-  <form autocomplete="off">
-    <label for="input">$</label>
-    <input type="text" name="input" />
-  </form>
-  <div class="retention"></div>
-  <div class="result">
-    <div class="net"></div>
-    <div class="gross"></div>
-  </div>
+  <Form />
+  <Retention />
+  <Result />
 </template>
 
 <style scoped>
