@@ -1,23 +1,35 @@
 <script setup>
 
-import { ref, computed } from 'vue';
+import { reactive, computed } from 'vue';
 
 import Form from "./components/Form.vue";
 import Retention from "./components/Retention.vue";
 import Result from "./components/Result.vue";
 
-const inputValue = ref(0);
+const mapper = [
+  {value: "2024", percentage: "13.75", checked: true},
+  {value: "2023", percentage: "13", checked: false},
+]
+
+const state = reactive({
+  input: 0,
+  retention: parseFloat(mapper.find(x => x.checked).percentage)
+});
 
 const handleInput = (value) => {
-  inputValue.value = value;
+  state.input = value;
+}
+
+const handleRetentionClick = (value) => {
+  state.retention = value;
 }
 
 const processedNet = computed(() => {
-  return computedNet(inputValue.value) || 0;
+  return computedNet(state.input) || 0;
 });
 
 const processedGross = computed(() => {
-  return computedGross(inputValue.value) || 0;
+  return computedGross(state.input) || 0;
 });
 
 const computedNet = (value) => {
@@ -35,8 +47,8 @@ const computedGross = (value) => {
   <h1>Bolettta</h1>
   <h2>Calcula tu boleta de honorarios</h2>
   <Form @change="handleInput" />
-  <Retention />
-  <Result :net="processedNet" :gross="processedGross" />
+  <Retention :mapper="mapper" @change="handleRetentionClick" />
+  <Result :state="state" :net="processedNet" :gross="processedGross" />
 </template>
 
 <style scoped>

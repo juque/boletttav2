@@ -4,6 +4,9 @@ const emit = defineEmits(['change']);
 
 const handleInput = (event) => {
   let value = event.target.value;
+  if (/n/.test(value)) {
+    value = '';
+  }
   value = value.replace(/[^\d]/g, '');
   emit('change', value);
   event.target.value = value;
