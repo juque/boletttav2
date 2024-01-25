@@ -11,10 +11,17 @@ const mapper = [
   {value: "2023", percentage: "13", checked: false},
 ]
 
-const state = reactive({
-  input: 0,
-  retention: parseFloat(mapper.find(x => x.checked).percentage)
-});
+const initializeState = () => {
+  const defaultCheckedItem = mapper.find((x) => x.checked) || mapper[0]; 
+  const retention = parseFloat(defaultCheckedItem.percentage);
+
+  return reactive({
+    input: 0,
+    retention,
+  });
+};
+
+const state = initializeState();
 
 const handleInput = (value) => {
   state.input = value;
